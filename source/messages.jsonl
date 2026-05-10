@@ -1,0 +1,5 @@
+{"id": "1", "description": "Сделать лабораторную работу", "priority": 1, "status": "created"}
+{"id": "2", "description": "Сделать 5-й номер по линалу", "priority": 1, "status": "processing"}
+{"id": "3", "description": "Помыть посуду", "priority": 4, "status": "created"}
+{"description": "Купить шаурму в Магнолии за 100 руб.", "priority": 5, "status": "completed"}
+{"id": "4", "description": "Попыть водички", "priority": 5, "status": "created"}
