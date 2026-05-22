@@ -1,12 +1,156 @@
+# Проект по Python
+
+Лабораторные работы по дисциплине «Программирование на языке Python» (№1, №2)
+
+## Требования
+
+- Python 3.10+
+
+Установка зависимостей:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+## Структура проекта
+
+```text
+Python_lab
+├── source
+│   └── messages.jsonl
+├── src
+│   ├── app
+│   │   ├── __init__.py
+│   │   ├── config.py
+│   │   └── core.py
+│   ├── contracts
+│   │   ├── __init__.py
+│   │   └── task_source.py
+│   ├── sources
+│   │   ├── __init__.py
+│   │   ├── api_source.py
+│   │   ├── generation.py
+│   │   ├── json.py
+│   │   └── register_sources.py
+│   ├── task_model
+│   │   ├── __init__.py
+│   │   ├── descriptors.py
+│   │   ├── error_tasks.py
+│   │   └── task.py
+│   ├── __init__.py
+│   └── main.py
+├── tests
+│   ├── __init__.py
+│   ├── test_core_and_registry.py
+│   ├── test_sources.py
+│   └── test_task_model.py
+├── .coveragerc
+├── .gitignore
+├── .pre-commit-config.yaml
+├── app.log
+├── README.md
+└── requirements.txt
+```
+
+## Основные модули
+
+- `source/` — файлы с исходными данными, например `messages.jsonl`.
+- `src/app/` — настройка приложения и общий код для запуска обработки задач.
+- `src/contracts/` — протоколы и контракты.
+- `src/sources/` — разные источники задач.
+- `src/task_model/` — модель задачи, дескрипторы, исключения и очередь задач.
+- `tests/` — тесты проекта.
+
+## Лабораторная работа №1
+
+В первой лабораторной работе реализована подсистема получения задач из разных источников.
+
+Источники не наследуются от общего базового класса, но поддерживают протокол с помощью `typing.Protocol`.
+
+Выполнено:
+
+- описан протокол `TaskSource`;
+- добавлена runtime-проверка источников через `isinstance`;
+- реализованы несколько источников задач:
+  - чтение из JSONL-файла;
+  - генерация задач в коде;
+  - API-заглушка;
+- добавлен реестр источников, чтобы новые источники можно было подключать без изменения основного кода;
+- ошибки при чтении некорректных задач обрабатываются и логируются.
+
+## Лабораторная работа №2
+
+Во второй лабораторной работе реализована модель задачи `Task`.
+
+Предусмотрена валидация данных и защита объекта от некорректного состояния.
+
+У задачи есть:
+
+- `id` — идентификатор;
+- `description` — описание задачи;
+- `priority` — приоритет от 1 до 5;
+- `status` — статус задачи;
+- `created_at` — время создания.
+
+Для проверки данных используются пользовательские дескрипторы:
+
+- `NotEmptyString` — проверяет непустую строку;
+- `Priority` — проверяет приоритет;
+- `Status` — проверяет статус задачи;
+- `CreatedAt` — descriptor для чтения времени создания.
+
+Также добавлены свойства:
+
+- `is_ready`;
+- `is_finished`.
+
+Для ошибок используются исключения:
+
+- `TaskError`;
+- `TaskIdError`;
+- `TaskDescriptionError`;
+- `TaskPriorityError`;
+- `TaskStatusError`.
+
+Также реализован метод `Task.from_dict()`, чтобы создавать задачу из словаря.
+
+## Запуск приложения
+
+Запуск с API-заглушкой:
+
+```bash
+python -m src.main --api
+```
+
+Запуск с генерацией задач:
+
+```bash
+python -m src.main --generated 5
+```
+
+Запуск с чтением задач из файла:
+
+```bash
+python -m src.main --file source/messages.jsonl
+```
+
+Источники можно комбинировать:
+
+```bash
+python -m src.main --api --generated 3 --file source/messages.jsonl
+```
+
+## Тесты
+
 Запуск тестов:
-```commandline
+
+```bash
 python -m pytest
 ```
 
----
+Проверка покрытия:
 
-Проверка покрытия тестами:
-```commandline
+```bash
 python -m coverage run -m pytest
 python -m coverage report
 ```
