@@ -1,3 +1,7 @@
+# Чтобы python не вычислял аннотации во время импортирования
+# типа: str | "NonEmptyString"
+from __future__ import annotations
+
 from enum import Enum
 from datetime import datetime
 
