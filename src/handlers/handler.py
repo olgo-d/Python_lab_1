@@ -28,10 +28,13 @@ class FileTaskHandler:
 
         task.status = TaskStatus.PROCESSING
 
-        async with self._lock:
-            await asyncio.to_thread(self._write_task_to_file, task)
+        # имитация обработки задачи
+        await asyncio.sleep(0)
 
         task.status = TaskStatus.COMPLETED
+
+        async with self._lock:
+            await asyncio.to_thread(self._write_task_to_file, task)
 
         logger.info("Задача обработана и записана в файл: %s", task.id)
 

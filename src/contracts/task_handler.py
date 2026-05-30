@@ -5,7 +5,7 @@ from src.task_model.task import Task
 
 @runtime_checkable
 class TaskHandler(Protocol):
-    """Контракт асинхронного источника задач"""
+    """Контракт асинхронного исполнителя задач"""
 
     name: str
 
