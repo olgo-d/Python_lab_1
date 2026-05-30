@@ -47,7 +47,7 @@ class GeneratedSource:
         for index in range(1, self.count + 1):
             task_data: dict[str, Any] = {
                 "id": str(uuid.uuid4()),
-                "description": f"Generated task #{index}",
+                "description": f"Generated task №{index}",
                 "priority": (index % 5) + 1,
                 "status": TaskStatus.CREATED,
             }

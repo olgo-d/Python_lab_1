@@ -73,7 +73,7 @@ def test_generated_source_yields_expected_tasks_and_priorities() -> None:
     assert len(tasks) == 6
     assert [task.priority for task in tasks] == [2, 3, 4, 5, 1, 2]
     assert all(task.status == TaskStatus.CREATED for task in tasks)
-    assert tasks[0].description == "Generated task #1"
+    assert tasks[0].description == "Generated task №1"
 
 
 def test_create_generated_source_factory() -> None:

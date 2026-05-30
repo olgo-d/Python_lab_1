@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterable, Iterator
+from typing import cast
 import logging
 
 from src.contracts.task_source import TaskSource
@@ -65,10 +66,12 @@ class TaskQueue:
                 raise TaskPriorityError("min_priority не может быть больше max_priority")
 
         for task in self:
-            if min_priority is not None and task.priority < min_priority:
+            priority = cast(int, task.priority)
+
+            if min_priority is not None and priority < min_priority:
                 continue
 
-            if max_priority is not None and task.priority > max_priority:
+            if max_priority is not None and priority > max_priority:
                 continue
 
             yield task

@@ -6,3 +6,4 @@ pluggy==1.6.0
 Pygments==2.20.0
 pytest==9.0.3
 pytest-cov==7.1.0
+pytest-asyncio==1.4.0
